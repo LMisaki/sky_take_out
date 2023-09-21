@@ -1,5 +1,8 @@
 package com.sky.mapper;
 
+import com.sky.annotation.AutoFill;
+import com.sky.entity.Dish;
+import com.sky.enumeration.OperationType;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -11,7 +14,15 @@ public interface DishMapper {
      * @param categoryId
      * @return
      */
-    @Select("select count(id) from dish where category_id = #{categoryId}")
+    @Select("select count(id) from sky_take_out.dish where category_id = #{categoryId}")
     Integer countByCategoryId(Long categoryId);
 
+    /**
+     * Desc: 新增菜品数据 
+     * @param dish
+     * @return 
+     * @author L_Misaki
+     */
+    @AutoFill(OperationType.INSERT)
+    void insert(Dish dish);
 }
