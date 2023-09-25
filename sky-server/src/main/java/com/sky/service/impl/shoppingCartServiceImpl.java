@@ -71,5 +71,27 @@ public class shoppingCartServiceImpl implements ShoppingCartService {
             shoppingCart.setCreateTime(LocalDateTime.now());
             shoppingCatMapper.insert(shoppingCart);
         }
+
+    }
+
+    @Override
+    public List<ShoppingCart> showShoppingCart() {
+        Long userId = BaseContext.getCurrentId();
+        ShoppingCart shoppingCart = ShoppingCart.builder()
+                .userId(userId)
+                .build();
+        List<ShoppingCart> list = shoppingCatMapper.list(shoppingCart);
+        return list;
+    }
+
+    /**
+     * Desc: 情况购物车
+     * @param
+     * @return
+     * @author L_Misaki
+     */
+    public void cleanShoppingCart() {
+        Long userId = BaseContext.getCurrentId();
+        shoppingCatMapper.deleteByUserId(userId);
     }
 }
